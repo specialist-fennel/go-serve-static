@@ -5,23 +5,18 @@ import (
 )
 
 func main() {
-	// http.Handle("/", http.FileServer(http.Dir("static")))
-	// http.Handle("/", http.StripPrefix(".html", http.FileServer(http.Dir("static"))))
-	// http.Handle("/chat", http.FileServer(http.Dir("static/chat.html")))
 
-	// http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-	// 	http.FileServer(http.Dir("static")).ServeHTTP(w, r)
-	// })
+	// Here is your static file server, which serves files from the static/ directory which contains your js and css files
+	// usually I put CSS, images and js in here.
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
 
-	// http.HandleFunc("/chat/", func(w http.ResponseWriter, r *http.Request) {
-	// 	http.FileServer(http.Dir("./static/chat.hmtl")).ServeHTTP(w, r)
-	// })
+	// I've moved the html files into a new directory called templates/
 
-	// http.Handle("/static", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-
-	// http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-	// 	http.StripPrefix("/static/", http.FileServer(http.Dir("static"))).ServeHTTP(w, r)
-	// })
+	// Here are your routes for the website with "/" being the home page.
+	// I like to use HandleFunc and then make the functions themselves in a separate file. In this case they are in handlers.go
+	http.HandleFunc("/", HomePage)
+	http.HandleFunc("/chat", ChatPage)
+	http.HandleFunc("/example", RenderExample)
 
 	http.ListenAndServe(":3000", nil)
 }
