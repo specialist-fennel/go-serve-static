@@ -2,3 +2,11 @@ body {
   background-color: beige;
   color:blueviolet;
 }
+
+.link-class {
+  color: violet;
+}
+
+.link-class:hover {
+  color: red;
+}
